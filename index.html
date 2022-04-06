@@ -591,7 +591,7 @@ function uidown(v){
 }
 var h
 //var embs=[set_img('1.svg'),set_img('2.svg'),set_img('3.svg')]
-function s_bootd(f){let te;!f||f==''?te=parse(localStorage.getItem('bootd')):(te=bootd);te.l=bootd.l;localStorage.setItem('bootd',stringify(te));set_icos(bootd);set_snds(bootd)}
+function s_bootd(f){let te;!f||f==''?te=parse(localStorage.getItem('bootd')):(te=bootd);te.l=bootd.l;localStorage.setItem('bootd',stringify(te));bootd=te;arrset(bootd);}
 function d_logo(d,s,a,v,n){d_ico([d,s,a,v.icos.sheet,v.icos.index.indexOf(n)])}
 function d_ico([d,s,a,v,w]){!h?up_imgs():ctx.globalAlpha=a;ctx.drawImage(v,w*h,0,h,h,d[0]-s/2,d[1]-s/2,s,s)}
 var menu=false
@@ -622,67 +622,12 @@ function up_menu(v){
 
 
 }
-function d_menu(){
-  if(!menu){return}
-  ctx.save()
-  ctx.translate(0,dimensions[1]-standard*.2)
-  for(n in men_nos){let te;men_nos[n]>=0?te=menu[men_nos[n]]:[];te?d_logo([0,0],s*1,1,v.ico[1][0],v.ico[1][1]):[]}
-  ctx.restore()
-}
+
 </script>
 
 
 <script>
-ui_s=true
-notif('netfable')
-menus={
-  "contact":[
-    [['d_logo',[bootd,'face']],["opn","https://facebook.com/Net-Fable-103129412367807"]],
-    [['d_logo',[bootd,'mail']],["alrt","mailto:net.fable.dev@gmail.com"]],
-    [['d_logo',[bootd,'whats']],["opn","https://wa.me/message/XFCGIQ7KU4NKJ1"]]
-  ]
-}
-function netfable(){
-  let tst=[[-.25,-.22,[1,1],.2,'white','teal',.5*pi],[0,-.25,[.5,1],.25,'white','teal',pi],[.25,-.2,[0,1],.2,'white','teal',1.5*pi]]
-  set_btns(tst)
- // console.log(buttons)
-  buttons.unshift(false)
-  
-  buttons[1].av=true;buttons[1].ico=['d_logo',[bootd,'about']]//buttons[1].fun=['sv_l',n]
-  buttons[2].av=true;buttons[2].ico=['d_logo',[bootd,'apps']]//buttons[2].fun=['sv_l',n]
-  buttons[3].av=true;buttons[3].ico=['d_logo',[bootd,'contact']];buttons[3].fun=['set_menu',"contact"]
 
-  ui_c='netfable2'
-}
-function netfable2(){
-  cpf()
-  let sth=standard*.3
-  let st=standard*.2
-  let sf=st*2
-  let sp=sf*.4
- ctx.save()
- ctx.translate(dh[0],dh[1]-sth*1.1)
- d_emb([0,0],.4,'teal')
- dtxt("Net",-st,sp,st,'white',1,'')
- dtxt("Fable",st,sp,st,'white',1,'')
- dtxt("Apps",0,sf,st,'white',1,'')
- dtxt("Websites",-sth,sf,st,'white',1,'')
- dtxt("Games",sth,sf,st,'white',1,'')
-
- ctx.restore()
- //d_logo([dh[0],dh[1]*1.7],sp,1,bootd,'apps')
-  dbtns()
-   /*ctx.save()
- ctx.shadowBlur=10+(10-l_rate[0])*5;ctx.shadowColor='teal'
- d_logo([dh[0]*.2,dh[1]*.3],sp,.7,bootd,'small')
- d_logo([dh[0]*.5,dh[1]*.2],sp,.7,bootd,'platforms')
- d_logo([dh[0]*1.5,dh[1]*.2],sp,.7,bootd,'secure')
-
- d_logo([dh[0]*1.8,dh[1]*.3],sp,.7,bootd,'install')
-ctx.restore()*/
-
-
-}
 
 </script>
 <script id='ui' ></script>
@@ -697,10 +642,11 @@ ctx.restore()*/
   function pb(n){pressed!=n&&buttons[n]&&buttons[n].av&&buttons[n].fun?(rl_p(),pressed=n,buttons[n]['5']=true,play(bootd.sfx.c)):[]}
 </script>
 <script id='srcer'>
-function chng_src(n,v){document.getElementById(n).src=v;}
-function bootcheck(){if(bootd.l){}else{chng_src('ui',bootd.scripts.lang)}}
+function chng_src(n,v){let nscript=document.createElement("script");nscript.setAttribute("src",v);document.getElementById(n).remove();nscript.setAttribute("id",n);document.body.appendChild(nscript);}
+function bootcheck(){if(bootd.l){chng_src('ui',bootd.scripts.netfable)}else{chng_src('ui',bootd.scripts.lang)}}
 //if(bootd){set_icos(bootd);set_snds(bootd);}else{get(begone(tar),'uidown',true,true)}
-if(bootd){set_icos(bootd);set_snds(bootd);bootcheck()}else{get(begone(tar),'uidown',true,true)}
+if(bootd){arrset(bootd);bootcheck()}else{get(begone(tar),'uidown',true,true)}
+function arrset(v){set_icos(v);set_snds(v)}
 </script>
 <script id='control'>
   pressed=null
